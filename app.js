@@ -30,6 +30,24 @@ let game = `
       </div>
     </div>
     <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h2>Won</h2>
+            <h2 id="won"><h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <div class="card-body">
+            <h2>Lost</h2>
+            <h2 id="lost"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-12">
         <div class="card">
           <div class="card-body">
@@ -46,21 +64,29 @@ let appElem = document.getElementById("app")
 appElem.innerHTML = game
 
 let choice = ['rock', 'paper', 'scissors'];
+let won = 0;
+let lost = 0;
 
 function play(playerChoice) {
   let computerChoice = choice[(Math.floor(Math.random() * 3))];
-  var result = ""
+  var result = "";
   if (playerChoice == 'paper' && computerChoice == 'rock') {
-    result = "<h2>You Won!!!</h2>"
+    result = "<h2>You Won!!!</h2>";
+    won++;
   } else if (playerChoice == 'rock' && computerChoice == 'scissors') {
-    result = "<h2>You Won!!!</h2>"
+    result = "<h2>You Won!!!</h2>";
+    won++;
   } else if (playerChoice == 'scissors' && computerChoice == 'paper') {
-    result = "<h2> You Won!!! </h2>"
+    result = "<h2> You Won!!! </h2>";
+    won++;
   } else if (playerChoice == computerChoice) {
-    result = `<h5> You chose ${playerChoice}, computer chose ${computerChoice}. Looks like a tie.</h5>`
+    result = `<h5> You chose ${playerChoice}, computer chose ${computerChoice}. Looks like a tie.</h5>`;
   } else {
-    result = "<h2>You lose</h2>"
+    result = "<h2>You lose</h2>";
+    lost++;
   }
+  document.getElementById("won").innerHTML = won.toString();
+  document.getElementById("lost").innerHTML = lost.toString();
   document.getElementById("result").innerHTML = result
   console.log("player choice: ", playerChoice, "computer choice: ", computerChoice, "result: ", result)
 }
