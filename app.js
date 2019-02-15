@@ -1,5 +1,5 @@
 let game = `
-<main class='container-fluid text-center'>
+  <main class='container-fluid text-center'>
     <div class="row">
       <div class="col-sm-4">
         <div class="card bg-dark text-dark">
@@ -25,6 +25,26 @@ let game = `
           <div class="card-img-overlay">
             <h5 class="card-title">SCISSORS</h5>
             <button type="button" class="btn btn-primary btn-lg btn-block" onclick="play('scissors')">Choose Scissors</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-2">
+        <div class="card bg-dark text-dark">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRak2WVwwIEur5EsTkR05CwWzniFoTjyN2IupGPioFmiBCw3_FgZQ" class="card-img" />
+          <div class="card-img-overlay">
+            <h5 class="card-title">LIZARD</h5>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="play('lizard')">Choose Lizard</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card bg-dark text-dark">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtHMuPeorldRC5hoT0N2cVWqkwKTYhnLUZV_9xBjdK0bDmAYQT6Q" class="card-img" />
+          <div class="card-img-overlay">
+            <h5 class="card-title">SPOCK</h5>
+            <button type="button" class="btn btn-primary btn-lg btn-block" onclick="play('spock')">Choose Mr. Spock</button>
           </div>
         </div>
       </div>
@@ -63,24 +83,37 @@ let game = `
 let appElem = document.getElementById("app")
 appElem.innerHTML = game
 
-let choice = ['rock', 'paper', 'scissors'];
+let choice = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
 let won = 0;
 let lost = 0;
 
 function play(playerChoice) {
-  let computerChoice = choice[(Math.floor(Math.random() * 3))];
+  let computerChoice = choice[(Math.floor(Math.random() * 5))];
   var result = "";
-  if (playerChoice == 'paper' && computerChoice == 'rock') {
+  let winner = {
+    rock: 'scissors' || 'lizard',
+    paper: 'rock' || 'spock',
+    scissors: 'paper' || 'lizard',
+    lizard: 'paper' || 'spock',
+    spock: 'rock' || 'scissors'
+  }
+  if (playerChoice == computerChoice) {
+    result = `<h5> You chose ${playerChoice}, computer chose ${computerChoice}. Looks like a tie.</h5>`;
+  } else if (playerChoice == 'paper' && computerChoice == 'rock' || 'spock') {
     result = "<h2>You Won!!!</h2>";
     won++;
-  } else if (playerChoice == 'rock' && computerChoice == 'scissors') {
+  } else if (playerChoice == 'rock' && computerChoice == 'scissors' || 'lizard') {
     result = "<h2>You Won!!!</h2>";
     won++;
-  } else if (playerChoice == 'scissors' && computerChoice == 'paper') {
+  } else if (playerChoice == 'scissors' && computerChoice == 'paper' || 'lizard') {
     result = "<h2> You Won!!! </h2>";
     won++;
-  } else if (playerChoice == computerChoice) {
-    result = `<h5> You chose ${playerChoice}, computer chose ${computerChoice}. Looks like a tie.</h5>`;
+  } else if (playerChoice == 'lizard' && computerChoice == 'paper' || 'spock') {
+    result = "<h2>You Won!!!</h2>";
+    won++;
+  } else if (playerChoice == 'spock' && computerChoice == 'scissors' || 'rock') {
+    result = "<h2> You Won!!! </h2>";
+    won++;
   } else {
     result = "<h2>You lose</h2>";
     lost++;
